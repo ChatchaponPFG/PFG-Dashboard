@@ -191,25 +191,55 @@ body{
 
 <script>
 
-// Run when page loads
-window.onload = function(){
-    if(localStorage.getItem("loggedIn") === "true"){
-        document.getElementById("login-page").style.display = "none";
-        document.getElementById("main-content").style.display = "block";
-    }
-}
+const SESSION_LIMIT = 30 * 60 * 1000; // 30 minutes (adjust here)
 
+// Run when page loads
+document.addEventListener("DOMContentLoaded", function(){
+
+    const isLoggedIn = localStorage.getItem("loggedIn");
+    const loginTime = localStorage.getItem("loginTime");
+
+    if(isLoggedIn === "true" && loginTime){
+
+        const now = new Date().getTime();
+
+        if(now - loginTime < SESSION_LIMIT){
+            // ✅ still valid session
+            document.getElementById("login-page").style.display = "none";
+            document.getElementById("main-content").style.display = "block";
+        }else{
+            // ⛔ session expired
+            logout();
+        }
+
+    }else{
+        document.getElementById("login-page").style.display = "flex";
+        document.getElementById("main-content").style.display = "none";
+    }
+
+});
+
+// LOGIN
 function checkLogin(){
     const password = document.getElementById("password").value;
 
     if(password === "pfg123"){
-        localStorage.setItem("loggedIn", "true"); // ✅ save login
+        localStorage.setItem("loggedIn", "true");
+        localStorage.setItem("loginTime", new Date().getTime()); // ⏱ save time
 
         document.getElementById("login-page").style.display = "none";
         document.getElementById("main-content").style.display = "block";
     }else{
         document.getElementById("error-msg").innerText = "Wrong password";
     }
+}
+
+// LOGOUT
+function logout(){
+    localStorage.removeItem("loggedIn");
+    localStorage.removeItem("loginTime");
+
+    location.reload();
 }
 
 </script>
