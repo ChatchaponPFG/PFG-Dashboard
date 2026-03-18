@@ -190,16 +190,28 @@ body{
 </head>
 
 <script>
+
+// Run when page loads
+window.onload = function(){
+    if(localStorage.getItem("loggedIn") === "true"){
+        document.getElementById("login-page").style.display = "none";
+        document.getElementById("main-content").style.display = "block";
+    }
+}
+
 function checkLogin(){
     const password = document.getElementById("password").value;
 
-    if(password === "pfg123"){   // 🔥 CHANGE THIS PASSWORD
+    if(password === "pfg123"){
+        localStorage.setItem("loggedIn", "true"); // ✅ save login
+
         document.getElementById("login-page").style.display = "none";
         document.getElementById("main-content").style.display = "block";
     }else{
         document.getElementById("error-msg").innerText = "Wrong password";
     }
 }
+
 </script>
 
 <body>
@@ -232,6 +244,7 @@ function checkLogin(){
     <div class="nav-bar">
         <div class="nav-item active" onclick="showSection('dashboard', this)">Dashboard</div>
         <div class="nav-item" onclick="showSection('download', this)">File Download</div>
+        <div class="nav-item" onclick="logout()">Logout</div>
     </div>
 
 </div>
@@ -283,6 +296,13 @@ function checkLogin(){
 <!-- SCRIPT -->
 
 <script>
+
+// LOGIN check (already added before)
+
+function logout(){
+    localStorage.removeItem("loggedIn");
+    location.reload();
+}
 
 function showSection(section, element){
 
