@@ -186,6 +186,72 @@ body{
     box-shadow:0 5px 15px rgba(0,0,0,0.3);
 }
 
+/* =========================
+   MOBILE RESPONSIVE FIX
+========================= */
+
+@media (max-width: 768px){
+
+    /* HEADER STACK */
+    .header{
+        flex-direction:column;
+        align-items:flex-start;
+        padding:15px 20px;
+        gap:12px;
+    }
+
+    .header-left{
+        width:100%;
+        justify-content:flex-start;
+    }
+
+    .header-title{
+        font-size:16px;
+        white-space:normal; /* allow wrap */
+    }
+
+    /* NAV BAR */
+    .nav-bar{
+        width:100%;
+        overflow-x:auto;
+        gap:8px;
+    }
+
+    .nav-item{
+        flex:0 0 auto;
+        padding:8px 14px;
+        font-size:13px;
+    }
+
+    /* CONTAINER */
+    .dashboard-container{
+        width:95%;
+        margin:15px auto;
+    }
+
+    /* CARD */
+    .dashboard-card{
+        padding:15px;
+    }
+
+    /* POWER BI (important fix) */
+    .powerbi-wrapper{
+        aspect-ratio: 16 / 10; /* taller for mobile */
+    }
+
+    /* DOWNLOAD BUTTON */
+    .download-btn{
+        width:100%;
+        font-size:14px;
+    }
+
+    /* LOGIN BOX */
+    .login-box{
+        width:90%;
+        padding:20px;
+    }
+}
+    
 </style>
 </head>
 
